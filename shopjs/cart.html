@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<!-- 购物车样式表 -->
+	<link rel="stylesheet" type="text/css" href="css/cart.css"/>
+	<!-- 操作cookie的js文件 -->
+	<script type="text/javascript" src="js/cookie.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>购物车</h1>
+		<h3><a href="demo.html">返回商品列表页面</a></h3>
+		<table id="table" borde="1" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th width="10%"><input type="checkbox" id="allCheck" class="ck"/><span>全选</span></th>
+					<th width="10%">图片</th>
+					<th width="40%">描述</th>
+					<th width="10%">数量</th>
+					<th width="10%">单价</th>
+					<th width="10%">小计</th>
+					<th width="10%">操作</th>
+				</tr>
+			</thead>
+			<tbody id="tbody"></tbody>
+		</table>
+		<div id="box">购物车里没有任何商品</div>
+		<h2 id="h2" class="">总价格： ¥<span id="totalPrice">0</span></h2>
+	</div>
+	<script type="text/javascript" src="js/server.js"></script>
+	<!-- 操作购物车页面的cart.js -->
+	<script type="text/javascript" src="js/cart.js"></script>
+</body>
+</html>
