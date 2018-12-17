@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>邀请</title>
+    <script type="text/javascript" src="js/fastclick.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+</head>
+<style type="text/css">
+    html {
+        height: 100%;
+    }
+    html,body {
+        min-height: 100%;
+    }
+    body {
+        background: linear-gradient(#f8c952, #f9d060, #fbd768, #fad17f);
+        background: -webkit-linear-gradient(#f8c952, #f9d060, #fbd768, #fad17f);
+    }
+    .bgaa6b21 {
+        background: #aa6b21;
+    }
+    .coloraa6b21 {
+        color: #aa6b21;
+    }
+    .container {
+        background: url("images/gold_coin.png") no-repeat center top;
+        background-size: 7.5rem auto;
+        min-height: 100%;
+    }
+    .card-content .line {
+        background: #ff9c82;
+    }
+    .top-txt-wrap {
+        padding: .7rem 0 .5rem;
+    }
+    .top-txt {
+        width: 6.1rem;
+        height: .74rem;
+    }
+    .activity-intro {
+        border-radius: .1rem .1rem 0 0;
+        margin: 0 .75rem;
+    }
+    .card-content {
+        background: linear-gradient(to top left, #ff7e40, #fe532b 70%, #fbb952);
+    }
+    .cro-left-top,
+    .cro-right-top,
+    .cro-left-bottom,
+    .cro-right-bottom {
+        position: absolute;
+        width: .25rem;
+        height: .25rem;
+        border: 1px solid #fff;
+        z-index: 1;
+        background: #fff;
+    }
+    .cro-left-top {
+        top: -1px;
+        left: -1px;
+        border-radius: 0px 0px .25rem 0px;
+        border-bottom: 1px solid #fff;
+        border-right: 1px solid #fff;
+    }
+    .cro-right-top {
+        top: -1px;
+        right: -1px;
+        border-radius: 0px 0px 0px .25rem;
+        border-bottom: 1px solid #fff;
+        border-left: 1px solid #fff;
+    }
+    .cro-left-bottom{
+        left: -1px;
+        bottom: -1px;
+        border-radius: 0px .25rem 0px 0px;
+        border-top: 1px solid #fff;
+        border-right: 1px solid #fff;
+    }
+    .cro-right-bottom{
+        right: -1px;
+        bottom: -1px;
+        border-radius: .25rem 0px 0px 0px;
+        border-top: 1px solid #fff;
+        border-left: 1px solid #fff;
+    }
+    .card-txt {
+        width: 4.06rem;
+        height: .62rem;
+    }
+    .money-wrap img {
+        width: auto;
+        height: .9rem;
+    }
+    .money-wrap .money {
+        font-size: .8rem;
+        background: linear-gradient(90deg, #ffdda2, #fcba4e);
+        background: -webkit-linear-gradient(90deg, #ffdda2, #fcba4e);
+        background-clip: text;
+        -webkit-background-clip: text;
+        text-fill-color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
+    .tip span {
+        width: .16rem;
+    }
+    .tip em {
+        font-size: .22rem;
+        padding: 0 .14rem;
+    }
+    .step-title span {
+        width: 1.4rem;
+    }
+    .step-title em {
+        letter-spacing: 4px;
+        padding: 0 .3rem 0 .4rem;
+    }
+    .step-content li span {
+        width: .4rem;
+        height: .4rem;
+        line-height: .4rem;
+        background: #b97e45;
+        margin: 0 auto .22rem;
+        z-index: 1;
+    }
+    .step-content li p {
+        line-height: .3rem;
+        color: #b97e45;
+    }
+    .step-content li .line {
+        top: .2rem;
+    }
+    .invite-space {
+        height: .4rem;
+        background: url("images/invite_space.png") no-repeat center center;
+        background-size: 100% 100%;
+        margin: 0 .75rem;
+    }
+    .invite-list {
+        border-radius: 0 0 .1rem .1rem;
+        margin: 0 .75rem 0;
+    }
+    .spread {
+        letter-spacing: 4px;
+    }
+    .arrow {
+        width: .26rem;
+        height: .14rem;
+        background-image: url("images/arrow.png");
+        background-size: 100% auto;
+    }
+    .arrow-down {
+        background-position: 0 0;
+    }
+    .arrow-up {
+        background-position: 0 -.14rem;
+    }
+    .invite-list-title span {
+        width: 1.4rem;
+    }
+    .list-content-item dl dt img {
+        width: .8rem;
+        height: .8rem;
+    }
+    .list-content-item dl dd .p-1 {
+        padding: .1rem 0 .08rem;
+    }
+    .footer-btn a {
+        height: .9rem;
+        line-height: .9rem;
+    }
+</style>
+<body>
+<div class="container line-height1">
+    <div class="top-txt-wrap">
+        <img src="images/txt_04@2x.png" class="top-txt blo auto" alt="文字图片">
+    </div>
+    <div class="activity-intro bgfff pl50 pr50 pt50 pb35">
+        <div class="card-content pl50 pr50 pt80 pb50 rel">
+            <img src="images/txt_02@2x.png" class="card-txt" alt="文字图片">
+            <div class="line h1 mt10 mb5"></div>
+            <div class="flex money-wrap v-center">
+                <img src="images/txt_01@2x.png" alt="文字图片">
+                <span class="money b pl10 pr10">20</span>
+                <img src="images/txt_03@2x.png" alt="文字图片">
+            </div>
+            <div class="flex tip v-center pt50">
+                <span class="hr scale-half bgfff"></span>
+                <em class="colorfff tc">当期课程开始后，方可领取奖学金</em>
+                <span class="hr scale-half bgfff"></span>
+            </div>
+            <div class="cro-left-top"></div>
+            <div class="cro-right-top"></div>
+            <div class="cro-left-bottom"></div>
+            <div class="cro-right-bottom"></div>
+        </div>
+        <div class="flex step-title v-center pt60 pb40">
+            <span class="hr scale-half bgaa6b21"></span>
+            <em class="f30 tc coloraa6b21">简单3步</em>
+            <span class="hr scale-half bgaa6b21"></span>
+        </div>
+        <ul class="step-content flex">
+            <li class="flex1">
+                <div class="line rel flex f-end">
+                    <div class="hr scale-half w50-percent" style="background: #e3cbb5;"></div>
+                </div>
+                <span class="blo br50-percent tc f26 colorfff rel">1</span>
+                <p class="f24 tc">保存图片<br>分享好友</p>
+            </li>
+            <li class="flex1">
+                <div class="line rel">
+                    <div class="hr scale-half" style="background: #e3cbb5;"></div>
+                </div>
+                <span class="blo br50-percent tc f26 colorfff rel">2</span>
+                <p class="f24 tc">好友购买<br>且未退款</p>
+            </li>
+            <li class="flex1">
+                <div class="line rel">
+                    <div class="hr scale-half w50-percent" style="background: #e3cbb5;"></div>
+                </div>
+                <span class="blo br50-percent tc f26 colorfff rel">3</span>
+                <p class="f24 tc">联系小助手<br>获取奖学金</p>
+            </li>
+        </ul>
+    </div>
+    <div class="invite-space"></div>
+    <div class="invite-list bgfff">
+        <div class="spread f30 tc pt15 pb15 coloraa6b21 flex hv-center" id="spread">已邀请4名好友<span class="arrow arrow-down ml5"></span></div>
+        <div class="invite-list-title flex v-center ml50 mr50 pt45 pb15 hidden" id="invite_list_title">
+            <span class="hr scale-half bgaa6b21"></span>
+            <em class="f30 tc flex1 coloraa6b21">4名受邀好友</em>
+            <span class="hr scale-half bgaa6b21"></span>
+        </div>
+        <div class="invite-list-content hidden" id="invite_list_content">
+            <div class="list-content-item ml50 mr50">
+                <dl class="flex pt30 pb30">
+                    <dt>
+                        <img src="images/head_01.png" class="blo" alt="头像图片">
+                    </dt>
+                    <dd class="pl25">
+                        <p class="p-1 f26">AAAAA</p>
+                        <p class="p-2 f22 color999">2018-11-11  18：06</p>
+                    </dd>
+                </dl>
+                <div class="hr scale-half bgddd"></div>
+            </div>
+            <div class="list-content-item ml50 mr50">
+                <dl class="flex pt30 pb30">
+                    <dt>
+                        <img src="images/head_01.png" class="blo" alt="头像图片">
+                    </dt>
+                    <dd class="pl25">
+                        <p class="p-1 f26">AAAAA</p>
+                        <p class="p-2 f22 color999">2018-11-11  18：06</p>
+                    </dd>
+                </dl>
+                <div class="hr scale-half bgddd"></div>
+            </div>
+        </div>
+        <div class="pack-up flex hv-center f22 color999 pt30 pb25 hidden" id="pack_up">
+            收起所有<span class="arrow arrow-up ml10"></span>
+        </div>
+    </div>
+    <div style="height: 1.55rem;"></div>
+</div>
+<div class="footer-btn fixed left0 right0 bottom0 flex z-index3">
+    <a href="javascript:;" class="flex1 tc bgaa6b21 colorfff b" id="contact_helper" data-clipboard-text="weixue0527">联系小助手</a>
+    <a href="javascript:;" class="flex1 tc bgfff coloraa6b21 b">立即邀请</a>
+</div>
+<div class="weui_dialog_alert hidden" id="weui_dialog_alert">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">提示</strong></div>
+        <div class="weui_dialog_bd">
+            微信号weixue0527已复制到粘贴板，请到微信添加朋友页面粘贴并搜索
+        </div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary" id="weui_btn_dialog">确定</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/clipboard.min.js"></script>
+<script type="text/javascript">
+    var obj = {
+        init: function () {
+            var clipboard = new ClipboardJS($("#contact_helper")[0]);
+            clipboard.on('success', function(e) {
+                // console.log(e);
+                $("#weui_dialog_alert").removeClass("hidden");
+            });
+            clipboard.on('error', function(e) {
+                console.log(e);
+            });
+            $("#weui_btn_dialog").on("click", function () {
+                $("#weui_dialog_alert").addClass("hidden");
+            });
+            $("#pack_up").on("click", function () {
+                $(".pack-up, .invite-list-content, .invite-list-title").addClass("hidden").siblings(".spread").removeClass("hidden");
+            });
+            $("#spread").on("click", function () {
+                $(this).addClass("hidden").siblings(".pack-up, .invite-list-content, .invite-list-title").removeClass("hidden");
+            });
+        }
+    };
+    obj.init();
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>activity</title>
+    <script type="text/javascript" src="js/fastclick.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+</head>
+<style type="text/css">
+    html, body {
+        background: #fff;
+    }
+    .detail img {
+        width: 100%;
+    }
+    .tab-wrap {
+        padding: .44rem .75rem .6rem;
+    }
+    .tab-temp-blank {
+        height: 1.74rem;
+    }
+    .tab .tab-item {
+        height: .66rem;
+    }
+    .tab .tab-item {
+        border: 1px solid #a7a7a7;
+    }
+    .tab .tab-item:nth-of-type(1) {
+        border-radius: .1rem 0 0 .1rem;
+        border-right: none;
+    }
+    .tab .tab-item:nth-of-type(2) {
+        border-radius: 0 .1rem .1rem 0;
+        border-left: none;
+    }
+    .tab .tab-item.cur {
+        border-color: #ffc000;
+        background: #ffc000;
+        color: #fff;
+    }
+    .content-item img {
+        width: 100%;
+    }
+    .bot-blank {
+        height: 1.64rem;
+    }
+    .pay-btn a {
+        background-color: #ffcc00;
+        color: #333;
+    }
+</style>
+<body>
+<div class="detail"></div>
+<div class="tab-wrap w100-percent border-box bgfff">
+    <div class="tab flex">
+        <div class="tab-item flex1 flex hv-center color999 cur">课时介绍</div>
+        <div class="tab-item flex1 flex hv-center color999">内容列表</div>
+    </div>
+</div>
+<div class="tab-temp-blank hidden"></div>
+<div class="content">
+    <div class="content-item"></div>
+    <div class="content-item hidden"></div>
+</div>
+<div class="bot-blank"></div>
+<div class="pay-btn fixed bottom0 left0 right0 pl30 pt40 pr30 pb40 bgfff">
+    <a href="javascript:;" class="weui_btn" id="pay_btn">优惠支付¥99进入早鸟营</a>
+</div>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript">
+    var obj = {
+        data: {
+            getData: {
+                detail: '<img src="images/detail_img.jpg" alt="图片">',
+                tab1: '<img src="images/tab_01.jpg" alt="图片">',
+                tab2: '<img src="images/tab_02.png" alt="图片">',
+            }
+        },
+        init: function () {
+            this.$detail = $(".detail");
+            this.$tabTempBlank = $(".tab-temp-blank");
+            this.$tabWrap = $(".tab-wrap");
+            this.$tabItem = $(".tab-item");
+            this.$contentItem = $(".content-item");
+            this.initView();
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            var that = this;
+            that.$tabItem.on("click", function () {
+                var index = $(this).index();
+                $(this).addClass("cur").siblings().removeClass("cur");
+                that.$contentItem.eq(index).removeClass("hidden").siblings().addClass("hidden");
+            });
+            $(window).on("scroll", function () {
+                if ($(this).scrollTop() > that.$detail.height()) {
+                    that.$tabWrap.css({
+                        "position": "fixed",
+                        "top": 0
+                    });
+                    that.$tabTempBlank.removeClass("hidden");
+                }
+                if ($(this).scrollTop() <= that.$detail.height()) {
+                    that.$tabWrap.css({
+                        "position": "static"
+                    });
+                    that.$tabTempBlank.addClass("hidden");
+                }
+            });
+        },
+        initView: function () {
+            var data = this.data;
+            this.$detail.html(data.getData.detail);
+            this.$contentItem.eq(0).html(data.getData.tab1);
+            this.$contentItem.eq(1).html(data.getData.tab2);
+        }
+    };
+    obj.init();
+</script>
+</body>
+</html>

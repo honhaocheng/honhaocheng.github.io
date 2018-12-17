@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>签到</title>
+    <script type="text/javascript" src="js/fastclick.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+</head>
+<style type="text/css">
+    html, body {
+        height: 100%;
+    }
+    .sign-btn a {
+        background-color: #ffcc00;
+        color: #333;
+    }
+    .bot-blank {
+        height: 1.64rem;
+    }
+    .mark {
+        display: none;
+        width: 5rem;
+    }
+    .mark-c {
+        opacity: .5;
+        background: #000;
+    }
+</style>
+<body>
+<img src="images/sign_bg.png" class="blo w100-percent" id="sign_poster" alt="图片">
+<div class="bot-blank"></div>
+<div class="sign-btn fixed bottom0 left0 right0 pl30 pt40 pr30 pb40 bgfff">
+    <a href="javascript:;" class="weui_btn" id="sign_btn">立即打卡</a>
+</div>
+<div id="loadingToast" class="weui_loading_toast hidden">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <!-- :) -->
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">图片生成中</p>
+    </div>
+</div>
+<!--打卡成功-->
+<div class="mark">
+    <div class="mark-c fixed left0 top0 w100-percent h100-percent z-index1"></div>
+    <div class="mark-img fixed right0 top0 z-index2">
+        <img src="images/sharenew.png" alt="图片">
+    </div>
+</div>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript">
+    var POSTER_WIDTH = 750;
+    var POSTER_HEIGHT = 1206;
+    var DATA = {
+        "title": "21天外刊共读计划",
+        "bgImg": "images/sign_bg.png",
+        "nickname": "uason",
+        "avatar": "images/head_01.jpg",
+        "inviteUrl": "images/qr_code.png",
+        "signCount": 21,
+        "signWords": 7521,
+        "readTime": 2805
+    };
+    var obj = {
+        data: {},
+        init: function () {
+            this.$signPoster = $("#sign_poster");
+            this.$mark = $(".mark");
+            this.createPosterImg();
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            var that = this;
+            $(document).on("click", "#sign_btn,.mark", function () {
+                that.$mark.fadeToggle(300);
+            });
+        },
+        createPosterImg: function () {
+            var that = this,
+                drawing = document.createElement("canvas");
+            $(drawing).attr({
+                width: POSTER_WIDTH,
+                height: POSTER_HEIGHT
+            }).css({
+                width: POSTER_WIDTH / 2 + "px",
+                height: POSTER_HEIGHT / 2 + "px"
+            });
+            if (drawing.getContext) {
+                $("#loadingToast").removeClass("hidden");
+                var context = drawing.getContext("2d"),
+                    bgImg = new Image();
+                bgImg.onload = function () {
+                    context.drawImage(bgImg, 0, 0, POSTER_WIDTH, POSTER_HEIGHT);
+                    context.save();
+                    common.canvas.radiusRect(context, 275, 70, 188, 188, 94);
+                    context.strokeStyle = "#fff";
+                    context.lineWidth = 6;
+                    context.stroke();
+                    context.clip();
+                    var headImg = new Image();
+                    headImg.setAttribute("crossOrigin", "anonymous");
+                    headImg.onload = function () {
+                        context.drawImage(headImg, 275, 70, 188, 188);
+                        context.restore();
+                        // 绘制昵称
+                        common.canvas.drawText(context, "36px Arial", "#333", DATA.nickname, POSTER_WIDTH / 2, 288);
+                        // 绘制阅读天数
+                        common.canvas.drawText(context, "bold 60px Arial", "#333", DATA.signCount, 115, 388);
+                        common.canvas.drawText(context, "30px Arial", "#333", "阅读天数", 115, 464);
+
+                        // 绘制阅读词数
+                        common.canvas.drawText(context, "bold 60px Arial", "#333", DATA.signWords, POSTER_WIDTH / 2, 388);
+                        common.canvas.drawText(context, "30px Arial", "#333", "阅读词数", POSTER_WIDTH / 2, 464);
+
+                        // 绘制阅读分钟
+                        common.canvas.drawText(context, "bold 60px Arial", "#333", DATA.readTime, 635, 388);
+                        common.canvas.drawText(context, "30px Arial", "#333", "阅读分钟", 635, 464);
+
+                        // 绘制活动名称
+                        common.canvas.drawText(context, "30px Arial", "#333", DATA.title, 80, 1015, "start");
+
+                        var qrCodeImg = new Image();
+                        qrCodeImg.onload = function () {
+                            context.drawImage(qrCodeImg, 515, 940, 180, 180);
+                            var imgURL = drawing.toDataURL("image/jpeg");
+                            that.$signPoster.attr("src", imgURL);
+                            $("#loadingToast").addClass("hidden");
+                        }
+                        qrCodeImg.src = DATA.inviteUrl;
+                    }
+                    headImg.src = DATA.avatar;
+                }
+                bgImg.src = DATA.bgImg;
+            }
+        }
+    };
+    obj.init();
+</script>
+</body>
+</html>

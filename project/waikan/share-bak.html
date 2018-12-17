@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分享</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+    <script type="text/javascript">
+        var deviceWidth = document.documentElement.clientWidth;
+        if (deviceWidth > 750) deviceWidth = 750;
+        document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+    </script>
+</head>
+<style type="text/css">
+    html, body {
+        height: 100%;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .swiper-container-wrap {
+        bottom: 1.8rem;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-container-wrap  .tip {
+        bottom: .45rem;
+    }
+    .swiper-container-wrap .tip span {
+        width: .4rem;
+    }
+    .page-wrap {
+        padding: 0 1.05rem;
+        background: rgba(0, 0, 0, .8);
+    }
+    .page-wrap .poster {
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+        -webkit-transform: translate3d(0, -50%, 0);
+    }
+    .page-one {
+        background: url("images/wheat@2x_01.jpg") repeat-y;
+        background-size: 100% auto;
+    }
+    .page-one img.banner {
+        height: 2.3rem;
+    }
+    .page-one dl.personal-info dt img {
+        width: .8rem;
+        height: .8rem;
+        border: 2px solid #e5e5e5;
+    }
+    .share-bg {
+        height: .18rem;
+        background: #03080B url("images/share_space.png") no-repeat center center;
+        background-size: 100% 100%;
+    }
+    .page-one .swiper-slide-content {
+        width: 4.5rem;
+        border-radius: .2rem;
+    }
+    .page-one dl.activity-info dt p.p-1{
+        color: #ff562d;
+    }
+    .page-one dl.activity-info dt p.p-2{
+        line-height: .35rem;
+    }
+    .page-one dl.activity-info dd img {
+        width: 1.2rem;
+    }
+    .page-one .remarks {
+        margin: 0 .25rem 0;
+    }
+    .page-one .remarks span {
+        width: .8rem;
+    }
+    .page-one .remarks em {
+        padding: 0 .2rem;
+    }
+    .small-pic {
+        height: 1.8rem;
+    }
+    .small-pic .small-pic-item {
+        width: 1.4rem;
+        height: 1.4rem;
+        background: #434343;
+        margin-left: .25rem;
+    }
+    .small-pic .small-pic-item:first-child {
+        margin-left: 0;
+    }
+    .qrcode img {
+        width: auto;
+    }
+</style>
+<body>
+<div class="h100-percent rel">
+    <div class="abs swiper-container-wrap left0 top0 right0">
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id="poster_big_pic">
+                <!--<div class="swiper-slide">
+                    <div class="page-wrap w100-percent h100-percent border-box rel">
+                        <div class="page-one w100-percent h100-percent">
+                            <div class="abs modal-center swiper-slide-content bgfff ovh pb40">
+                                <img src="images/h5banner@2x.png" class="blo banner" alt="banner图片">
+                                <dl class="flex p30 personal-info">
+                                    <dt>
+                                        <img src="images/head_01.png" class="blo border-box br50-percent" alt="头像图片">
+                                    </dt>
+                                    <dd class="pl15">
+                                        <p class="p-1 f28 pt8 pb10">小埋</p>
+                                        <p class="p-2 f24 color666">邀请您一起学习英语</p>
+                                    </dd>
+                                </dl>
+                                <div class="share-bg"></div>
+                                <div class="tc f36 b pb5 pt55">21天外刊共读计划</div>
+                                <dl class="activity-info flex p30">
+                                    <dt class="flex1">
+                                        <p class="p-1 f30 pb15">『限时特价』</p>
+                                        <p class="p-2 f24">让你真正会用英语<br>长按二维码了解课程</p>
+                                    </dt>
+                                    <dd>
+                                        <img src="images/qr_code.png" class="blo" alt="二维码图片">
+                                    </dd>
+                                </dl>
+                                <div class="flex remarks v-center">
+                                    <span class="hr scale-half bge5e5e5"></span>
+                                    <em class="f18 color666 flex1 tc">威学一百出品</em>
+                                    <span class="hr scale-half bge5e5e5"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="abs left0 right0 flex tip hv-center">
+                            <span class="hr scale-half bgfff"></span>
+                            <em class="colorfff f26 pl15 pr15 tc">长按上图保存图片,或发送给朋友</em>
+                            <span class="hr scale-half bgfff"></span>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <div class="abs left0 right0 flex tip hv-center z-index2">
+            <span class="hr scale-half bgfff"></span>
+            <em class="colorfff f26 pl15 pr15 tc">长按上图保存图片,或发送给朋友</em>
+            <span class="hr scale-half bgfff"></span>
+        </div>
+    </div>
+    <div class="abs left0 right0 bottom0 small-pic p20 border-box bgfff">
+        <div class="footer-swiper-container">
+            <div class="swiper-slide flex" id="poster_small_pic"></div>
+        </div>
+    </div>
+</div>
+<canvas id="drawing" width="540" height="870" style="display: none;width: 270px;height: 435px;">A drawing of something.</canvas>
+<div id="qrcode" class="qrcode hidden"></div>
+<script src="js/swiper.min.js"></script>
+<script src="js/qrcode.min.js"></script>
+<script type="text/javascript">
+    var POSTER_WIDTH = 540;
+    var POSTER_HEIGHT = 870;
+    var DATA = {
+        bannerUrl: "images/h5banner@2x.png",
+        headUrl: "images/head_01.png",
+        nickName: "uason",
+        activityName: "21天外刊共读计划",
+        qrCodeUrl: "http://www.baidu.com/"
+    };
+    new QRCode(document.getElementById("qrcode"), {
+        text: DATA.qrCodeUrl,
+        width: 60,
+        height: 60,
+        colorDark : '#000000',
+        colorLight : '#ffffff',
+        correctLevel : QRCode.CorrectLevel.H
+    });
+    var obj = {
+        data: {
+            bgList: [
+                {imgUrl: "images/page_one_bg.jpg", posterUrl: "", page: "pageOne"},
+                {imgUrl: "images/page_two_bg.jpg", posterUrl: "", page: "pageTwo"},
+                {imgUrl: "images/page_three_bg.jpeg", posterUrl: "", page: "pageThree"},
+            ]
+        },
+        initView: function (flag) {
+            var data = this.data;
+            var posterBigPicListHtml = "";
+            var posterSmallPicListHtml = "";
+            data.bgList.forEach(function (item, index) {
+                posterBigPicListHtml += '<div class="swiper-slide">\
+                                            <div class="page-wrap w100-percent h100-percent border-box rel">\
+                                                <img src="' + (item.posterUrl || item.imgUrl) + '" class="blo rel poster" alt="图片">\
+                                            </div>\
+                                        </div>';
+                if (flag) {
+                    posterSmallPicListHtml += '<div class="small-pic-item border-box">\
+                                                   <img src="' + item.imgUrl + '" class="blo w100-percent h100-percent" alt="背景图片">\
+                                               </div>';
+                }
+            });
+            document.getElementById("poster_big_pic").innerHTML = posterBigPicListHtml;
+            if (flag) {
+                document.getElementById("poster_small_pic").innerHTML = posterSmallPicListHtml;
+                this.makePosterFunc(0);
+            }
+        },
+        /**
+         * @desc 实例化swiper
+         * @date 2018/11/21 16:44:04
+         * @author honhaocheng
+         */
+        initSwiperFunc: function () {
+            var _this = this;
+            var posterBigPicSwiper = new Swiper('.swiper-container', {
+                autoplay: false,    //可选选项，自动滑动
+                speed: 300,
+                preloadImages: true,
+                on: {
+                    transitionEnd: function(){
+                        //Swiper初始化了
+                        // console.log('当前的slide序号是'+this.activeIndex);
+                        _this.makePosterFunc(this.activeIndex);
+                    }
+                },
+            });
+        },
+        /**
+         * @desc 生成海报
+         * @date 2018/11/21 16:53:46
+         * @author honhaocheng
+         */
+        makePosterFunc: function (index) {
+            var _this = this,
+                data = _this.data;
+            var drawing = document.getElementById("drawing");
+            if (drawing.getContext && !data.bgList[index].posterUrl) {
+                var context = drawing.getContext("2d");
+                switch (data.bgList[index].page) {
+                    case "pageOne":
+                        var bgImg = new Image();
+                        bgImg.onload = function () {
+                            context.drawImage(bgImg, 0, 0, POSTER_WIDTH, POSTER_HEIGHT);
+                            _this.radiusRect(context, 45, 73, 450, 725, 20);
+                            context.clip();
+                            var bannerImg = new Image();
+                            bannerImg.onload = function () {
+                                context.drawImage(bannerImg, 45, 73, 450, 230);
+                                var headImg = new Image();
+                                headImg.onload = function () {
+                                    context.drawImage(headImg, 75, 334, 80, 80);
+                                    var qrCodeImg = new Image();
+                                    qrCodeImg.onload = function () {
+                                        context.drawImage(qrCodeImg, 344, 590, 120, 120);
+                                        // 编写昵称文本
+                                        context.font = '28px Arial';
+                                        context.fillText(DATA.nickName, 173, 364);
+                                        // 编写活动名文本
+                                        context.font = '36px Microsoft YaHei';
+                                        context.textAlign = "center";
+                                        context.fillText(DATA.activityName, POSTER_WIDTH / 2, 535);
+                                        var imgURL = drawing.toDataURL("image/jpeg");
+                                        data.bgList[index].posterUrl = imgURL;
+                                        console.log(data.bgList);
+                                        _this.initView(false);
+                                        _this.initSwiperFunc();
+                                    }
+                                    qrCodeImg.src = document.querySelector("#qrcode img").src;
+                                }
+                                headImg.src = DATA.headUrl;
+                            }
+                            bannerImg.src = DATA.bannerUrl;
+                        };
+                        bgImg.src = data.bgList[index].imgUrl;
+                        break;
+                }
+            }
+        },
+        /**
+         * @desc 计算生成的指定图片的高度
+         * @param cW 生成图片的宽度
+         * @param imgObj 原图对象
+         * @date 2018/11/22 09:47:49
+         * @author honhaocheng
+         */
+        getImgHeight: function(cW, imgObj) {
+            return imgObj.height * cW / imgObj.width;
+        },
+        /**
+         * @desc 圆角矩形
+         * @param ctx 画布对象
+         * @param left x坐标
+         * @param top y坐标
+         * @param width 矩形的宽度
+         * @param height 矩形的高度
+         * @param r 圆角半径
+         * @date 2018/11/23 09:13:03
+         * @author honhaocheng
+         */
+        radiusRect: function(ctx, left, top, width, height, r) {
+            var pi = Math.PI;
+            ctx.beginPath();
+            ctx.arc(left + r, top + r, r, - pi, -pi / 2);
+            ctx.arc(left + width - r, top + r, r, -pi / 2, 0);
+            ctx.arc(left + width - r, top + height - r, r, 0, pi / 2);
+            ctx.arc(left + r, top + height - r, r, pi / 2, pi);
+            // console.log(ctx);
+            ctx.closePath();
+        }
+    };
+    obj.initView(true);
+</script>
+</body>
+</html>

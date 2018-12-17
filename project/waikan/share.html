@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分享</title>
+    <script type="text/javascript" src="js/fastclick.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+</head>
+<style type="text/css">
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    .swiper-container-wrap {
+        bottom: 1.8rem;
+    }
+
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-container-wrap .tip {
+        bottom: .2rem;
+    }
+
+    .swiper-container-wrap .tip span {
+        width: .4rem;
+    }
+
+    .page-wrap {
+        padding: 0 1.05rem;
+        background: rgba(0, 0, 0, .8);
+    }
+
+    .page-wrap .poster {
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+        -webkit-transform: translate3d(0, -50%, 0);
+    }
+
+    .footer-swiper-container {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .small-pic {
+        height: 1.8rem;
+    }
+
+    .small-pic .small-pic-item {
+        width: 1.4rem;
+        height: 1.4rem;
+        background: #434343;
+        margin-left: .25rem;
+    }
+
+    .small-pic .small-pic-item:first-child {
+        margin-left: 0;
+    }
+
+    .small-pic .small-pic-item.active:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .4) url("images/check@2x.png") no-repeat center center;
+        background-size: .48rem .48rem;
+    }
+
+    .qrcode img {
+        width: auto;
+    }
+</style>
+<body>
+<div class="h100-percent rel">
+    <div class="abs swiper-container-wrap left0 top0 right0">
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id="poster_big_pic"></div>
+            <div class="swiper-pagination hidden" id="swiper_pagination"></div>
+        </div>
+        <div class="abs left0 right0 flex tip hv-center z-index2">
+            <span class="hr scale-half bgfff"></span>
+            <em class="colorfff f26 pl15 pr15 tc">长按上图保存图片,或发送给朋友</em>
+            <span class="hr scale-half bgfff"></span>
+        </div>
+    </div>
+    <div class="abs left0 right0 bottom0 small-pic p20 border-box bgfff">
+        <div class="footer-swiper-container f0 nowrap" id="poster_small_pic"></div>
+    </div>
+</div>
+<div id="loadingToast" class="weui_loading_toast hidden">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <!-- :) -->
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">图片生成中</p>
+    </div>
+</div>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/qrcode.min.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript">
+    var POSTER_WIDTH = 540;
+    var POSTER_HEIGHT = 870;
+    var DATA = {
+        "title": "21天外刊共读计划",
+        "banner": "images/h5banner@2x.png",
+        "nickname": "uason",
+        "avatar": "images/head_01.jpg",
+        "inviteUrl": "http://frp.wishare100.cn/app./index.php?i=1&c=entry&aid=5&inviter=20&do=activity&m=wx_reading"
+    };
+    var qrCodeElm = document.createElement("div");
+    new QRCode(qrCodeElm, {
+        text: DATA.inviteUrl,
+        width: 120,
+        height: 120,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+    });
+    var obj = {
+        data: {
+            posterBigPicSwiper: null,
+            activeIndex: 0,
+            bgList: [
+                {
+                    bgImgUrl: "images/page_bg_01.jpg",
+                    posterUrl: "",
+                    page: "page_01"
+                },
+                {
+                    bgImgUrl: "images/page_bg_02.png",
+                    posterUrl: "",
+                    page: "page_02"
+                },
+
+            ],
+            posterThingPos: {
+                "page_01": {
+                    bgImg: {
+                        isClip: true,
+                        rect: {
+                            x: 45,
+                            y: 73,
+                            w: 450,
+                            h: 725,
+                            r: 20
+                        },
+                        imgPos: {
+                            x: 0,
+                            y: 0,
+                            w: POSTER_WIDTH,
+                            h: POSTER_HEIGHT
+                        }
+                    },
+                    banner: {
+                        isClip: false,
+                        imgPos: {
+                            x: 45,
+                            y: 73,
+                            w: 450,
+                            h: 230
+                        }
+                    },
+                    avatar: {
+                        isClip: true,
+                        rect: {
+                            x: 75,
+                            y: 334,
+                            w: 80,
+                            h: 80,
+                            r: 40,
+                            bw: 4,
+                            bc: "#e5e5e5",
+                        },
+                        imgPos: {
+                            x: 75,
+                            y: 334,
+                            w: 80,
+                            h: 80,
+                        }
+                    },
+                    nickname: {
+                        font: "28px Arial",
+                        imgPos: {
+                            x: 173,
+                            y: 364
+                        }
+                    },
+                    title: {
+                        font: "36px Microsoft YaHei",
+                        isCenter: true,
+                        imgPos: {
+                            x: POSTER_WIDTH,
+                            y: 535
+                        }
+                    },
+                    qrCode: {
+                        isClip: false,
+                        imgPos: {
+                            x: 344,
+                            y: 590,
+                            w: 120,
+                            h: 120
+                        }
+                    },
+                },
+                "page_02": {
+                    bgImg: {
+                        isClip: false,
+                        imgPos: {
+                            x: 0,
+                            y: 0,
+                            w: POSTER_WIDTH,
+                            h: POSTER_HEIGHT
+                        }
+                    },
+                    banner: {
+                        isClip: false,
+                        imgPos: {
+                            x: 145,
+                            y: 290,
+                            w: 250,
+                            h: 130
+                        }
+                    },
+                    avatar: {
+                        isClip: true,
+                        rect: {
+                            x: 75,
+                            y: 130,
+                            w: 80,
+                            h: 80,
+                            r: 40,
+                            bw: 4,
+                            bc: "#e5e5e5",
+                        },
+                        imgPos: {
+                            x: 75,
+                            y: 130,
+                            w: 80,
+                            h: 80,
+                        }
+                    },
+                    nickname: {
+                        font: "28px Arial",
+                        imgPos: {
+                            x: 173,
+                            y: 160
+                        }
+                    },
+                    title: {
+                        font: "24px Microsoft YaHei",
+                        isCenter: true,
+                        imgPos: {
+                            x: POSTER_WIDTH,
+                            y: 460
+                        }
+                    },
+                    qrCode: {
+                        isClip: false,
+                        imgPos: {
+                            x: 344,
+                            y: 550,
+                            w: 120,
+                            h: 120
+                        }
+                    },
+                }
+            }
+        },
+        initView: function () {
+            var that = this,
+                data = that.data,
+                posterBigPicListHtml = "",
+                posterSmallPicListHtml = "";
+            data.bgList.forEach(function (item, index) {
+                posterBigPicListHtml += '<div class="swiper-slide">\
+                                            <div class="page-wrap w100-percent h100-percent border-box rel">\
+                                                <img src="' + (item.posterUrl || item.bgImgUrl) + '" class="blo rel poster" alt="图片">\
+                                            </div>\
+                                        </div>';
+                posterSmallPicListHtml += '<span class="rel small-pic-item in-blo">\
+                                               <img src="' + item.bgImgUrl + '" data-index="' + index + '" class="blo w100-percent h100-percent" alt="背景图片">\
+                                           </span>';
+            });
+            $("#poster_big_pic").html(posterBigPicListHtml);
+            $("#poster_small_pic").html(posterSmallPicListHtml);
+            that.initSwiperFunc();
+            $("#poster_small_pic").on("click", function (event) {
+                var _$target = $(event.target);
+                if (_$target[0].tagName == "IMG") {
+                    var _index = _$target.data("index");
+                    $("#poster_small_pic").find("span").eq(_index).addClass("active").siblings().removeClass("active");
+                    data.posterBigPicSwiper.slideTo(_index, 300, false);
+                }
+            });
+        },
+        updateView: function (imgURL) {
+            var data = this.data;
+            if (imgURL) {
+                $("#loadingToast").addClass("hidden");
+                $("#poster_big_pic").children().eq(data.activeIndex).find("img").attr("src", imgURL)
+            }
+            $("#poster_small_pic").children().eq(data.activeIndex).addClass("active").siblings().removeClass("active");
+        },
+        /**
+         * @desc 实例化swiper
+         * @date 2018/11/21 16:44:04
+         * @author honhaocheng
+         */
+        initSwiperFunc: function () {
+            var that = this,
+                data = that.data,
+                publicFunc = function (activeIndex) {
+                    data.activeIndex = activeIndex;
+                    that.makePosterFunc(activeIndex);
+                };
+            if (!data.posterBigPicSwiper) {
+                data.posterBigPicSwiper = new Swiper('.swiper-container', {
+                    autoplay: false,    //可选选项，自动滑动
+                    speed: 300,
+                    preloadImages: true,
+                    initialSlide: data.activeIndex,
+                    on: {
+                        init: function () {
+                            publicFunc(this.activeIndex);
+                        },
+                        transitionEnd: function () {
+                            publicFunc(this.activeIndex);
+                        }
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true
+                    }
+                });
+            }
+        },
+        /**
+         * @desc 生成海报
+         * @date 2018/11/21 16:53:46
+         * @author honhaocheng
+         */
+        makePosterFunc: function (index) {
+            var that = this,
+                data = that.data,
+                drawing = document.createElement("canvas");
+            $(drawing).attr({
+                width: POSTER_WIDTH,
+                height: POSTER_HEIGHT
+            }).css({
+                width: POSTER_WIDTH / 2 + "px",
+                height: POSTER_HEIGHT / 2 + "px"
+            });
+            if (drawing.getContext) {
+                if (!data.bgList[index].posterUrl) {
+                    var context = drawing.getContext("2d"),
+                        curPageThingPos = data.posterThingPos[data.bgList[index].page],
+                        bgImg = new Image();
+                    $("#loadingToast").removeClass("hidden");
+                    bgImg.onload = function () {
+                        context.drawImage(
+                            bgImg,
+                            curPageThingPos.bgImg.imgPos.x,
+                            curPageThingPos.bgImg.imgPos.y,
+                            curPageThingPos.bgImg.imgPos.w,
+                            curPageThingPos.bgImg.imgPos.h
+                        );
+                        if (curPageThingPos.bgImg.isClip) {
+                            common.canvas.radiusRect(
+                                context,
+                                curPageThingPos.bgImg.rect.x,
+                                curPageThingPos.bgImg.rect.y,
+                                curPageThingPos.bgImg.rect.w,
+                                curPageThingPos.bgImg.rect.h,
+                                curPageThingPos.bgImg.rect.r
+                            );
+                            context.clip();
+                        }
+                        var bannerImg = new Image();
+                        bannerImg.setAttribute("crossOrigin", "anonymous");
+                        bannerImg.onload = function () {
+                            context.drawImage(
+                                bannerImg,
+                                curPageThingPos.banner.imgPos.x,
+                                curPageThingPos.banner.imgPos.y,
+                                curPageThingPos.banner.imgPos.w,
+                                curPageThingPos.banner.imgPos.h
+                            );
+                            if (curPageThingPos.avatar.isClip) {
+                                context.save();
+                                common.canvas.radiusRect(
+                                    context,
+                                    curPageThingPos.avatar.rect.x,
+                                    curPageThingPos.avatar.rect.y,
+                                    curPageThingPos.avatar.rect.w,
+                                    curPageThingPos.avatar.rect.h,
+                                    curPageThingPos.avatar.rect.r
+                                );
+                                context.strokeStyle = curPageThingPos.avatar.rect.bc;
+                                context.lineWidth = curPageThingPos.avatar.rect.bw;
+                                context.stroke();
+                                context.clip();
+                            }
+                            var headImg = new Image();
+                            headImg.setAttribute("crossOrigin", "anonymous");
+                            headImg.onload = function () {
+                                context.drawImage(
+                                    headImg,
+                                    curPageThingPos.avatar.imgPos.x,
+                                    curPageThingPos.avatar.imgPos.y,
+                                    curPageThingPos.avatar.imgPos.w,
+                                    curPageThingPos.avatar.imgPos.h
+                                );
+                                context.restore();
+                                var qrCodeImg = new Image();
+                                qrCodeImg.onload = function () {
+                                    context.drawImage(
+                                        qrCodeImg,
+                                        curPageThingPos.qrCode.imgPos.x,
+                                        curPageThingPos.qrCode.imgPos.y,
+                                        curPageThingPos.qrCode.imgPos.w,
+                                        curPageThingPos.qrCode.imgPos.h
+                                    );
+                                    // 绘制昵称文本
+                                    context.font = curPageThingPos.nickname.font;
+                                    context.fillText(
+                                        DATA.nickname,
+                                        curPageThingPos.nickname.imgPos.x,
+                                        curPageThingPos.nickname.imgPos.y
+                                    );
+                                    // 绘制活动名文本
+                                    context.font = curPageThingPos.title.font;
+                                    if (curPageThingPos.title.isCenter) {
+                                        context.textAlign = "center";
+                                        context.fillText(DATA.title, curPageThingPos.title.imgPos.x / 2, curPageThingPos.title.imgPos.y);
+                                    }
+                                    var imgURL = drawing.toDataURL("image/jpeg");
+                                    data.bgList[index].posterUrl = imgURL;
+                                    // console.log(data.bgList);
+                                    that.updateView(imgURL);
+                                }
+                                qrCodeImg.src = $(qrCodeElm).find("img")[0].src;
+                            }
+                            headImg.src = DATA.avatar;
+                        }
+                        bannerImg.src = DATA.banner;
+                    };
+                    bgImg.src = data.bgList[index].bgImgUrl;
+                } else {
+                    that.updateView();
+                }
+            }
+        }
+    };
+    obj.initView();
+</script>
+</body>
+</html>
